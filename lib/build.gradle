@@ -20,6 +20,22 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile project(':LoggingClientAndroidExtension')
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'at.fhhagenberg.mint.automate:loggingclient.androidextension:1.0.0-SNAPSHOT'
+}
+
+
+
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'at.fhhagenberg.mint.automate'
+            artifactId 'android.basemanager'
+            version '1.0.0-SNAPSHOT'
+
+            artifact("${project.buildDir}/outputs/aar/${project.name}-release.aar")
+        }
+    }
 }
