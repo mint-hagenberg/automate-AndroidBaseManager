@@ -37,11 +37,13 @@ import at.fhhagenberg.mint.automate.loggingclient.javacore.event.EventManager;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.AbstractManager;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.KernelListener;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.ManagerException;
+import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.annotation.ExternalManager;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.name.Id;
 
 /**
  * Manager that gathers general information about the device - basically the current session.
  */
+@ExternalManager(allowsUserStatusChange = false)
 public class DeviceInfoManager extends AbstractManager implements KernelListener {
 	public static final Id ID = new Id(DeviceInfoManager.class);
 
@@ -152,5 +154,10 @@ public class DeviceInfoManager extends AbstractManager implements KernelListener
 	@Override
 	public Id getId() {
 		return ID;
+	}
+
+	@Override
+	public String getName() {
+		return "Device Info Manager";
 	}
 }

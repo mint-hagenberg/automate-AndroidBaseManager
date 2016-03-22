@@ -50,11 +50,13 @@ import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.AbstractManage
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.KernelBase;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.KernelListener;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.ManagerException;
+import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.annotation.ExternalManager;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.name.Id;
 
 /**
  * Records the app sequence for a session. Includes the apps flow and the interaction count in the states of the app.
  */
+@ExternalManager
 public class AppSequenceManager extends AbstractManager implements EventListener, KernelListener {
 	public static final Id ID = new Id(AppSequenceManager.class);
 
@@ -126,11 +128,6 @@ public class AppSequenceManager extends AbstractManager implements EventListener
 
 	@Override
 	public void onShutdown() {
-	}
-
-	@Override
-	public Id getId() {
-		return ID;
 	}
 
 	@Override
@@ -206,5 +203,15 @@ public class AppSequenceManager extends AbstractManager implements EventListener
 		}
 
 		incrementCurrentStateInteractionCount();
+	}
+
+	@Override
+	public Id getId() {
+		return ID;
+	}
+
+	@Override
+	public String getName() {
+		return "App Sequence Manager";
 	}
 }

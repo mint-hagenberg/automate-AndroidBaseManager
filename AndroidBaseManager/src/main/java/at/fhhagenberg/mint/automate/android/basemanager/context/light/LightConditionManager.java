@@ -33,11 +33,13 @@ import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.AbstractManage
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.KernelBase;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.KernelListener;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.ManagerException;
+import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.annotation.ExternalManager;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.name.Id;
 
 /**
  * Check the light sensor data and send updates when the classification changes to avoid sending too many updates to the server.
  */
+@ExternalManager
 public class LightConditionManager extends AbstractManager implements SensorEventListener, KernelListener {
 	public static final Id ID = new Id(LightConditionManager.class);
 
@@ -156,5 +158,10 @@ public class LightConditionManager extends AbstractManager implements SensorEven
 	@Override
 	public Id getId() {
 		return ID;
+	}
+
+	@Override
+	public String getName() {
+		return "Light Condition Manager";
 	}
 }

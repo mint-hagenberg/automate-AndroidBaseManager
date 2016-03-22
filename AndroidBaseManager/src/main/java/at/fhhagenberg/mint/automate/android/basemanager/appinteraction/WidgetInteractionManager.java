@@ -30,11 +30,13 @@ import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.AbstractManage
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.KernelBase;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.KernelListener;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.ManagerException;
+import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.annotation.ExternalManager;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.name.Id;
 
 /**
  * Manager that gathers app widget interaction information.
  */
+@ExternalManager
 public class WidgetInteractionManager extends AbstractManager implements EventListener, KernelListener {
 	public static final Id ID = new Id(WidgetInteractionManager.class);
 
@@ -99,5 +101,10 @@ public class WidgetInteractionManager extends AbstractManager implements EventLi
 	@Override
 	public Id getId() {
 		return ID;
+	}
+
+	@Override
+	public String getName() {
+		return "Widget Interaction Manager";
 	}
 }

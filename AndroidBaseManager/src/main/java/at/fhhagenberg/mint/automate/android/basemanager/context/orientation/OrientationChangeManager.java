@@ -32,11 +32,13 @@ import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.AbstractManage
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.KernelBase;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.KernelListener;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.ManagerException;
+import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.annotation.ExternalManager;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.name.Id;
 
 /**
  * React to orientation changes and initiate sending them to the network.
  */
+@ExternalManager
 public class OrientationChangeManager extends AbstractManager implements KernelListener {
 	public static final Id ID = new Id(OrientationChangeManager.class);
 
@@ -108,5 +110,10 @@ public class OrientationChangeManager extends AbstractManager implements KernelL
 	@Override
 	public Id getId() {
 		return ID;
+	}
+
+	@Override
+	public String getName() {
+		return "Orientation Change Manager";
 	}
 }

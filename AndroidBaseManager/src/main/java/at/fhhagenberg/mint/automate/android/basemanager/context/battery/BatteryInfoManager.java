@@ -31,13 +31,15 @@ import at.fhhagenberg.mint.automate.loggingclient.javacore.event.EventManager;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.AbstractManager;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.KernelListener;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.ManagerException;
+import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.annotation.ExternalManager;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.name.Id;
 
 /**
  * Manager to get updates about battery status and send them to the server if deemed necessary.
  */
-public class BatteryInfoService extends AbstractManager implements KernelListener {
-	public static final Id ID = new Id(BatteryInfoService.class);
+@ExternalManager
+public class BatteryInfoManager extends AbstractManager implements KernelListener {
+	public static final Id ID = new Id(BatteryInfoManager.class);
 
 	private BatteryInfoTransmissionEvent mCurrentInfo;
 
@@ -48,7 +50,7 @@ public class BatteryInfoService extends AbstractManager implements KernelListene
 		}
 	};
 
-	public BatteryInfoService() {
+	public BatteryInfoManager() {
 		addDependency(EventManager.ID);
 		addDependency(TrustedTimeManager.ID);
 	}
@@ -125,5 +127,10 @@ public class BatteryInfoService extends AbstractManager implements KernelListene
 	@Override
 	public Id getId() {
 		return ID;
+	}
+
+	@Override
+	public String getName() {
+		return "Battery Info Manager";
 	}
 }

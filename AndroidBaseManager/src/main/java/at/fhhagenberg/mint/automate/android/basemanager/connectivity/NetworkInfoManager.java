@@ -32,11 +32,13 @@ import at.fhhagenberg.mint.automate.loggingclient.javacore.event.EventManager;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.AbstractManager;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.KernelListener;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.ManagerException;
+import at.fhhagenberg.mint.automate.loggingclient.javacore.kernel.annotation.ExternalManager;
 import at.fhhagenberg.mint.automate.loggingclient.javacore.name.Id;
 
 /**
  * Gathers information about the network information.
  */
+@ExternalManager
 public class NetworkInfoManager extends AbstractManager implements KernelListener {
 	public static final Id ID = new Id(NetworkInfoManager.class);
 
@@ -121,5 +123,10 @@ public class NetworkInfoManager extends AbstractManager implements KernelListene
 	@Override
 	public Id getId() {
 		return ID;
+	}
+
+	@Override
+	public String getName() {
+		return "Network Info Manager";
 	}
 }
