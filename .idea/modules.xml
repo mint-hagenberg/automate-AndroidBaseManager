@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidBaseManager/lib.iml" filepath="$PROJECT_DIR$/AndroidBaseManager/lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidBaseManager/AndroidBaseManager.iml" filepath="$PROJECT_DIR$/AndroidBaseManager/AndroidBaseManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/automate-AndroidBaseManager.iml" filepath="$PROJECT_DIR$/automate-AndroidBaseManager.iml" />
     </modules>
   </component>
