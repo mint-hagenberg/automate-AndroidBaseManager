@@ -30,6 +30,7 @@ import at.fhhagenberg.mint.automate.loggingclient.javacore.name.Id;
  */
 public class ConnectivityInfoFileExportHandler implements FileExportHandler {
 	private static final String FILENAME = "networkinfo.csv";
+	private static final String[] HEADER = {"startTime", "duration", "type", "subType", "isRoaming"};
 
 	@Override
 	public List<Id> getTransmissionEvents() {
@@ -39,6 +40,11 @@ public class ConnectivityInfoFileExportHandler implements FileExportHandler {
 	@Override
 	public String getFilename(Id id) {
 		return FILENAME;
+	}
+
+	@Override
+	public String[] getFileHeader(Id id) {
+		return HEADER;
 	}
 
 	@Override

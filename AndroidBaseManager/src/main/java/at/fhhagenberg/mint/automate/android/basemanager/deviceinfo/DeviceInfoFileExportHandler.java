@@ -30,6 +30,7 @@ import at.fhhagenberg.mint.automate.loggingclient.javacore.name.Id;
  */
 public class DeviceInfoFileExportHandler implements FileExportHandler {
 	private static final String FILENAME = "deviceinfo.csv";
+	private static final String[] HEADER = {"date", "device", "operator", "os", "location", "localeLanguage", "localeCountry", "timezoneOffset", "versionName", "resolutionWidth", "resolutionHeight"};
 
 	@Override
 	public List<Id> getTransmissionEvents() {
@@ -39,6 +40,11 @@ public class DeviceInfoFileExportHandler implements FileExportHandler {
 	@Override
 	public String getFilename(Id id) {
 		return FILENAME;
+	}
+
+	@Override
+	public String[] getFileHeader(Id id) {
+		return HEADER;
 	}
 
 	@Override

@@ -115,6 +115,7 @@ public class BatteryInfoTransmissionEvent extends SimpleEvent {
 			return false;
 		}
 		BatteryInfoTransmissionEvent e = (BatteryInfoTransmissionEvent) o;
-		return mHealth == e.mHealth && mLevel == e.mLevel && mPlugged == e.mPlugged && mPresent == e.mPresent && mScale == e.mScale && mStatus == e.mStatus && ((mTechnology == null && e.mTechnology == null) || (mTechnology != null && e.mTechnology != null && mTechnology.equals(e.mTechnology))) && mTemperature == e.mTemperature && mVoltage == e.mVoltage;
+		// temperature and voltage were left out because they'll probably change more often and we're not interested in all those changes!
+		return mHealth == e.mHealth && mLevel == e.mLevel && mPlugged == e.mPlugged && mPresent == e.mPresent && mScale == e.mScale && mStatus == e.mStatus && ((mTechnology == null && e.mTechnology == null) || (mTechnology != null && e.mTechnology != null && mTechnology.equals(e.mTechnology)));
 	}
 }

@@ -35,6 +35,10 @@ public class SensorContextFileExportHandler implements FileExportHandler {
 	private static final String FILENAME_LIGHT_CONDITION = "lightcondition.csv";
 	private static final String FILENAME_DEVICE_ORIENTATION = "deviceorientation.csv";
 
+	private static final String[] HEADER_BATTERY_INFO = {"startTie", "duration", "health", "level", "plugged", "isPresent", "scale", "status", "technology", "temperature", "voltage"};
+	private static final String[] HEADER_LIGHT_CONDITION = {"startTime", "endTime", "classification"};
+	private static final String[] HEADER_DEVICE_ORIENTATION = {"startTime", "endTime", "orientation"};
+
 	@Override
 	public List<Id> getTransmissionEvents() {
 		return Arrays.asList(BatteryInfoTransmissionEvent.ID, LightConditionTransmissionEvent.ID, DeviceOrientationTransmissionEvent.ID);
@@ -48,6 +52,19 @@ public class SensorContextFileExportHandler implements FileExportHandler {
 			return FILENAME_LIGHT_CONDITION;
 		} else if (id.equals(DeviceOrientationTransmissionEvent.ID)) {
 			return FILENAME_DEVICE_ORIENTATION;
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public String[] getFileHeader(Id id) {
+		if (id.equals(BatteryInfoTransmissionEvent.ID)) {
+			return HEADER_BATTERY_INFO;
+		} else if (id.equals(LightConditionTransmissionEvent.ID)) {
+			return HEADER_LIGHT_CONDITION;
+		} else if (id.equals(DeviceOrientationTransmissionEvent.ID)) {
+			return HEADER_DEVICE_ORIENTATION;
 		} else {
 			return null;
 		}

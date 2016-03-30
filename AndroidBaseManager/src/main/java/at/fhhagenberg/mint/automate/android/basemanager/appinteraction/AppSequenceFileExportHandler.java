@@ -33,6 +33,9 @@ public class AppSequenceFileExportHandler implements FileExportHandler {
 	private static final String FILENAME_APPSEQUENCE = "appsequence.csv";
 	private static final String FILENAME_INTERACTION = "appinteraction.csv";
 
+	private static final String[] HEADER_APPSEQUENCE = {"timestamp", "xml"};
+	private static final String[] HEADER_INTERACTION = {"packageName", "className", "title", "eventTime", "orientation", "interactionType", "interactionClassName", "interactionText", "contentDescription", "viewIdResourceName", "interactionEventTime", "screenBoundsLeft", "screenBoundsRight", "screenBoundsTop", "screenBoundsBottom", "parentBoundsLeft", "parentBoundsRight", "parentBoundsTop", "parentBoundsBottom"};
+
 	@Override
 	public List<Id> getTransmissionEvents() {
 		return Arrays.asList(AppSequenceTransmissionEvent.ID, AppInteractionTransmissionEvent.ID);
@@ -44,6 +47,17 @@ public class AppSequenceFileExportHandler implements FileExportHandler {
 			return FILENAME_APPSEQUENCE;
 		} else if (id.equals(AppInteractionTransmissionEvent.ID)) {
 			return FILENAME_INTERACTION;
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public String[] getFileHeader(Id id) {
+		if (id.equals(AppSequenceTransmissionEvent.ID)) {
+			return HEADER_APPSEQUENCE;
+		} else if (id.equals(AppInteractionTransmissionEvent.ID)) {
+			return HEADER_INTERACTION;
 		} else {
 			return null;
 		}
