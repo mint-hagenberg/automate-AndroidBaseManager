@@ -30,67 +30,72 @@ import at.fhhagenberg.mint.automate.loggingclient.javacore.name.Id;
  * File export handler implementation for the app sequence and interaction events.
  */
 public class AppSequenceFileExportHandler implements FileExportHandler {
-	private static final String FILENAME_APPSEQUENCE = "appsequence.csv";
-	private static final String FILENAME_INTERACTION = "appinteraction.csv";
+    private static final String FILENAME_APPSEQUENCE = "appsequence.csv";
+    private static final String FILENAME_INTERACTION = "appinteraction.csv";
 
-	private static final String[] HEADER_APPSEQUENCE = {"timestamp", "xml"};
-	private static final String[] HEADER_INTERACTION = {"packageName", "className", "title", "eventTime", "orientation", "interactionType", "interactionClassName", "interactionText", "contentDescription", "viewIdResourceName", "interactionEventTime", "screenBoundsLeft", "screenBoundsRight", "screenBoundsTop", "screenBoundsBottom", "parentBoundsLeft", "parentBoundsRight", "parentBoundsTop", "parentBoundsBottom"};
+    private static final String[] HEADER_APPSEQUENCE = {"timestamp", "xml"};
+    private static final String[] HEADER_INTERACTION = {"packageName", "className", "title", "eventTime", "orientation", "interactionType", "interactionClassName", "interactionText", "contentDescription", "viewIdResourceName", "interactionEventTime", "screenBoundsLeft", "screenBoundsRight", "screenBoundsTop", "screenBoundsBottom", "parentBoundsLeft", "parentBoundsRight", "parentBoundsTop", "parentBoundsBottom"};
 
-	@Override
-	public List<Id> getTransmissionEvents() {
-		return Arrays.asList(AppSequenceTransmissionEvent.ID, AppInteractionTransmissionEvent.ID);
-	}
+    @Override
+    public List<Id> getTransmissionEvents() {
+        return Arrays.asList(AppSequenceTransmissionEvent.ID, AppInteractionTransmissionEvent.ID);
+    }
 
-	@Override
-	public String getFilename(Id id) {
-		if (id.equals(AppSequenceTransmissionEvent.ID)) {
-			return FILENAME_APPSEQUENCE;
-		} else if (id.equals(AppInteractionTransmissionEvent.ID)) {
-			return FILENAME_INTERACTION;
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public List<String> getAllFilenames() {
+        return Arrays.asList(FILENAME_APPSEQUENCE, FILENAME_INTERACTION);
+    }
 
-	@Override
-	public String[] getFileHeader(Id id) {
-		if (id.equals(AppSequenceTransmissionEvent.ID)) {
-			return HEADER_APPSEQUENCE;
-		} else if (id.equals(AppInteractionTransmissionEvent.ID)) {
-			return HEADER_INTERACTION;
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public String getFilename(Id id) {
+        if (id.equals(AppSequenceTransmissionEvent.ID)) {
+            return FILENAME_APPSEQUENCE;
+        } else if (id.equals(AppInteractionTransmissionEvent.ID)) {
+            return FILENAME_INTERACTION;
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	public Object[] serialize(Event event) {
-		if (event.isOfType(AppSequenceTransmissionEvent.ID)) {
-			AppSequenceTransmissionEvent temp = (AppSequenceTransmissionEvent) event;
-			return new Object[]{temp.getTimestamp(), temp.getXml()};
-		} else if (event.isOfType(AppInteractionTransmissionEvent.ID)) {
-			AppInteractionTransmissionEvent temp = (AppInteractionTransmissionEvent) event;
-			return new Object[]{temp.getState() == null ? null : temp.getState().getPackageName(),
-					temp.getState() == null ? null : temp.getState().getClassName(),
-					temp.getState() == null ? null : temp.getState().getTitle(),
-					temp.getState() == null ? null : temp.getState().getEventTime(),
-					temp.getState() == null ? null : temp.getState().getOrientation(),
-					temp.getInteraction() == null || temp.getInteraction().getInteractionType() == null ? null : temp.getInteraction().getInteractionType().toString(),
-					temp.getInteraction() == null ? null : temp.getInteraction().getClassName(),
-					temp.getInteraction() == null ? null : temp.getInteraction().getText(),
-					temp.getInteraction() == null ? null : temp.getInteraction().getContentDescription(),
-					temp.getInteraction() == null ? null : temp.getInteraction().getViewIdResourceName(),
-					temp.getInteraction() == null ? null : temp.getInteraction().getEventTime(),
-					temp.getInteraction() == null || temp.getInteraction().getScreenBounds() == null ? null : temp.getInteraction().getScreenBounds().left,
-					temp.getInteraction() == null || temp.getInteraction().getScreenBounds() == null ? null : temp.getInteraction().getScreenBounds().right,
-					temp.getInteraction() == null || temp.getInteraction().getScreenBounds() == null ? null : temp.getInteraction().getScreenBounds().top,
-					temp.getInteraction() == null || temp.getInteraction().getScreenBounds() == null ? null : temp.getInteraction().getScreenBounds().bottom,
-					temp.getInteraction() == null || temp.getInteraction().getParentBounds() == null ? null : temp.getInteraction().getParentBounds().left,
-					temp.getInteraction() == null || temp.getInteraction().getParentBounds() == null ? null : temp.getInteraction().getParentBounds().right,
-					temp.getInteraction() == null || temp.getInteraction().getParentBounds() == null ? null : temp.getInteraction().getParentBounds().top,
-					temp.getInteraction() == null || temp.getInteraction().getParentBounds() == null ? null : temp.getInteraction().getParentBounds().bottom};
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public String[] getFileHeader(Id id) {
+        if (id.equals(AppSequenceTransmissionEvent.ID)) {
+            return HEADER_APPSEQUENCE;
+        } else if (id.equals(AppInteractionTransmissionEvent.ID)) {
+            return HEADER_INTERACTION;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Object[] serialize(Event event) {
+        if (event.isOfType(AppSequenceTransmissionEvent.ID)) {
+            AppSequenceTransmissionEvent temp = (AppSequenceTransmissionEvent) event;
+            return new Object[]{temp.getTimestamp(), temp.getXml()};
+        } else if (event.isOfType(AppInteractionTransmissionEvent.ID)) {
+            AppInteractionTransmissionEvent temp = (AppInteractionTransmissionEvent) event;
+            return new Object[]{temp.getState() == null ? null : temp.getState().getPackageName(),
+                    temp.getState() == null ? null : temp.getState().getClassName(),
+                    temp.getState() == null ? null : temp.getState().getTitle(),
+                    temp.getState() == null ? null : temp.getState().getEventTime(),
+                    temp.getState() == null ? null : temp.getState().getOrientation(),
+                    temp.getInteraction() == null || temp.getInteraction().getInteractionType() == null ? null : temp.getInteraction().getInteractionType().toString(),
+                    temp.getInteraction() == null ? null : temp.getInteraction().getClassName(),
+                    temp.getInteraction() == null ? null : temp.getInteraction().getText(),
+                    temp.getInteraction() == null ? null : temp.getInteraction().getContentDescription(),
+                    temp.getInteraction() == null ? null : temp.getInteraction().getViewIdResourceName(),
+                    temp.getInteraction() == null ? null : temp.getInteraction().getEventTime(),
+                    temp.getInteraction() == null || temp.getInteraction().getScreenBounds() == null ? null : temp.getInteraction().getScreenBounds().left,
+                    temp.getInteraction() == null || temp.getInteraction().getScreenBounds() == null ? null : temp.getInteraction().getScreenBounds().right,
+                    temp.getInteraction() == null || temp.getInteraction().getScreenBounds() == null ? null : temp.getInteraction().getScreenBounds().top,
+                    temp.getInteraction() == null || temp.getInteraction().getScreenBounds() == null ? null : temp.getInteraction().getScreenBounds().bottom,
+                    temp.getInteraction() == null || temp.getInteraction().getParentBounds() == null ? null : temp.getInteraction().getParentBounds().left,
+                    temp.getInteraction() == null || temp.getInteraction().getParentBounds() == null ? null : temp.getInteraction().getParentBounds().right,
+                    temp.getInteraction() == null || temp.getInteraction().getParentBounds() == null ? null : temp.getInteraction().getParentBounds().top,
+                    temp.getInteraction() == null || temp.getInteraction().getParentBounds() == null ? null : temp.getInteraction().getParentBounds().bottom};
+        } else {
+            return null;
+        }
+    }
 }

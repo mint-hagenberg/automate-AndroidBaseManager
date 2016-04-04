@@ -29,27 +29,32 @@ import at.fhhagenberg.mint.automate.loggingclient.javacore.name.Id;
  * File export handler implementation for the connectivity information.
  */
 public class ConnectivityInfoFileExportHandler implements FileExportHandler {
-	private static final String FILENAME = "networkinfo.csv";
-	private static final String[] HEADER = {"startTime", "duration", "type", "subType", "isRoaming"};
+    private static final String FILENAME = "networkinfo.csv";
+    private static final String[] HEADER = {"startTime", "duration", "type", "subType", "isRoaming"};
 
-	@Override
-	public List<Id> getTransmissionEvents() {
-		return Arrays.asList(NetworkInfoTransmissionEvent.ID);
-	}
+    @Override
+    public List<Id> getTransmissionEvents() {
+        return Arrays.asList(NetworkInfoTransmissionEvent.ID);
+    }
 
-	@Override
-	public String getFilename(Id id) {
-		return FILENAME;
-	}
+    @Override
+    public List<String> getAllFilenames() {
+        return Arrays.asList(FILENAME);
+    }
 
-	@Override
-	public String[] getFileHeader(Id id) {
-		return HEADER;
-	}
+    @Override
+    public String getFilename(Id id) {
+        return FILENAME;
+    }
 
-	@Override
-	public Object[] serialize(Event event) {
-		NetworkInfoTransmissionEvent temp = (NetworkInfoTransmissionEvent) event;
-		return new Object[]{temp.getStartTime(), temp.getDuration(), temp.getType(), temp.getSubType(), temp.isRoaming()};
-	}
+    @Override
+    public String[] getFileHeader(Id id) {
+        return HEADER;
+    }
+
+    @Override
+    public Object[] serialize(Event event) {
+        NetworkInfoTransmissionEvent temp = (NetworkInfoTransmissionEvent) event;
+        return new Object[]{temp.getStartTime(), temp.getDuration(), temp.getType(), temp.getSubType(), temp.isRoaming()};
+    }
 }

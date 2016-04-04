@@ -31,61 +31,66 @@ import at.fhhagenberg.mint.automate.loggingclient.javacore.name.Id;
  * File export handler implementation for the sensro context events.
  */
 public class SensorContextFileExportHandler implements FileExportHandler {
-	private static final String FILENAME_BATTERY_INFO = "batteryinfo.csv";
-	private static final String FILENAME_LIGHT_CONDITION = "lightcondition.csv";
-	private static final String FILENAME_DEVICE_ORIENTATION = "deviceorientation.csv";
+    private static final String FILENAME_BATTERY_INFO = "batteryinfo.csv";
+    private static final String FILENAME_LIGHT_CONDITION = "lightcondition.csv";
+    private static final String FILENAME_DEVICE_ORIENTATION = "deviceorientation.csv";
 
-	private static final String[] HEADER_BATTERY_INFO = {"startTie", "duration", "health", "level", "plugged", "isPresent", "scale", "status", "technology", "temperature", "voltage"};
-	private static final String[] HEADER_LIGHT_CONDITION = {"startTime", "endTime", "classification"};
-	private static final String[] HEADER_DEVICE_ORIENTATION = {"startTime", "endTime", "orientation"};
+    private static final String[] HEADER_BATTERY_INFO = {"startTie", "duration", "health", "level", "plugged", "isPresent", "scale", "status", "technology", "temperature", "voltage"};
+    private static final String[] HEADER_LIGHT_CONDITION = {"startTime", "endTime", "classification"};
+    private static final String[] HEADER_DEVICE_ORIENTATION = {"startTime", "endTime", "orientation"};
 
-	@Override
-	public List<Id> getTransmissionEvents() {
-		return Arrays.asList(BatteryInfoTransmissionEvent.ID, LightConditionTransmissionEvent.ID, DeviceOrientationTransmissionEvent.ID);
-	}
+    @Override
+    public List<Id> getTransmissionEvents() {
+        return Arrays.asList(BatteryInfoTransmissionEvent.ID, LightConditionTransmissionEvent.ID, DeviceOrientationTransmissionEvent.ID);
+    }
 
-	@Override
-	public String getFilename(Id id) {
-		if (id.equals(BatteryInfoTransmissionEvent.ID)) {
-			return FILENAME_BATTERY_INFO;
-		} else if (id.equals(LightConditionTransmissionEvent.ID)) {
-			return FILENAME_LIGHT_CONDITION;
-		} else if (id.equals(DeviceOrientationTransmissionEvent.ID)) {
-			return FILENAME_DEVICE_ORIENTATION;
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public List<String> getAllFilenames() {
+        return Arrays.asList(FILENAME_BATTERY_INFO, FILENAME_LIGHT_CONDITION, FILENAME_DEVICE_ORIENTATION);
+    }
 
-	@Override
-	public String[] getFileHeader(Id id) {
-		if (id.equals(BatteryInfoTransmissionEvent.ID)) {
-			return HEADER_BATTERY_INFO;
-		} else if (id.equals(LightConditionTransmissionEvent.ID)) {
-			return HEADER_LIGHT_CONDITION;
-		} else if (id.equals(DeviceOrientationTransmissionEvent.ID)) {
-			return HEADER_DEVICE_ORIENTATION;
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public String getFilename(Id id) {
+        if (id.equals(BatteryInfoTransmissionEvent.ID)) {
+            return FILENAME_BATTERY_INFO;
+        } else if (id.equals(LightConditionTransmissionEvent.ID)) {
+            return FILENAME_LIGHT_CONDITION;
+        } else if (id.equals(DeviceOrientationTransmissionEvent.ID)) {
+            return FILENAME_DEVICE_ORIENTATION;
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	public Object[] serialize(Event event) {
-		if (event.isOfType(BatteryInfoTransmissionEvent.ID)) {
-			BatteryInfoTransmissionEvent temp = (BatteryInfoTransmissionEvent) event;
-			return new Object[]{temp.getStartTime(), temp.getDuration(), temp.getHealth(),
-					temp.getLevel(), temp.getPlugged(), temp.isPresent(), temp.getScale(),
-					temp.getStatus(), temp.getTechnology(), temp.getTemperature(), temp.getVoltage()};
-		} else if (event.isOfType(LightConditionTransmissionEvent.ID)) {
-			LightConditionTransmissionEvent temp = (LightConditionTransmissionEvent) event;
-			return new Object[]{temp.getStartTime().getTime(), temp.getEndTime().getTime(),
-					temp.getClassification()};
-		} else if (event.isOfType(DeviceOrientationTransmissionEvent.ID)) {
-			DeviceOrientationTransmissionEvent temp = (DeviceOrientationTransmissionEvent) event;
-			return new Object[]{temp.getStartTime().getTime(), temp.getEndTime().getTime(), temp.getOrientation()};
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public String[] getFileHeader(Id id) {
+        if (id.equals(BatteryInfoTransmissionEvent.ID)) {
+            return HEADER_BATTERY_INFO;
+        } else if (id.equals(LightConditionTransmissionEvent.ID)) {
+            return HEADER_LIGHT_CONDITION;
+        } else if (id.equals(DeviceOrientationTransmissionEvent.ID)) {
+            return HEADER_DEVICE_ORIENTATION;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Object[] serialize(Event event) {
+        if (event.isOfType(BatteryInfoTransmissionEvent.ID)) {
+            BatteryInfoTransmissionEvent temp = (BatteryInfoTransmissionEvent) event;
+            return new Object[]{temp.getStartTime(), temp.getDuration(), temp.getHealth(),
+                    temp.getLevel(), temp.getPlugged(), temp.isPresent(), temp.getScale(),
+                    temp.getStatus(), temp.getTechnology(), temp.getTemperature(), temp.getVoltage()};
+        } else if (event.isOfType(LightConditionTransmissionEvent.ID)) {
+            LightConditionTransmissionEvent temp = (LightConditionTransmissionEvent) event;
+            return new Object[]{temp.getStartTime().getTime(), temp.getEndTime().getTime(),
+                    temp.getClassification()};
+        } else if (event.isOfType(DeviceOrientationTransmissionEvent.ID)) {
+            DeviceOrientationTransmissionEvent temp = (DeviceOrientationTransmissionEvent) event;
+            return new Object[]{temp.getStartTime().getTime(), temp.getEndTime().getTime(), temp.getOrientation()};
+        } else {
+            return null;
+        }
+    }
 }
