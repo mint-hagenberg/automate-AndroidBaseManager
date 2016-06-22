@@ -35,7 +35,7 @@ public class SensorContextFileExportHandler implements FileExportHandler {
     private static final String FILENAME_LIGHT_CONDITION = "lightcondition.csv";
     private static final String FILENAME_DEVICE_ORIENTATION = "deviceorientation.csv";
 
-    private static final String[] HEADER_BATTERY_INFO = {"startTie", "duration", "health", "level", "plugged", "isPresent", "scale", "status", "technology", "temperature", "voltage"};
+    private static final String[] HEADER_BATTERY_INFO = {"startTime", "duration", "health", "level", "plugged", "isPresent", "scale", "status", "technology", "temperature", "voltage"};
     private static final String[] HEADER_LIGHT_CONDITION = {"startTime", "endTime", "classification"};
     private static final String[] HEADER_DEVICE_ORIENTATION = {"startTime", "endTime", "orientation"};
 
